@@ -1,0 +1,30 @@
+<!--logs.wxml-->
+<view class="container">
+  <view class="rule-content">
+    <view class="guide">
+      <text>
+        ThinkBit是一个专业数字资产交易平台
+        ThinkBit具备专业、安全、服务、生态、价值
+         -创新安全模式
+         -专业维护零卡顿
+         -最完善的服务
+         -极具独创性及升值潜力的平台币
+      </text>
+    </view>
+    <view class="h2">活动玩法:</view>
+    <view class="p">
+      <text class="text">1、注册即送500TB币。</text>
+      <text class="text">2、加入Telegram群发送获奖代码系统会赠送100枚TB币。</text>
+      <text class="text">3、邀请好友成功注册，邀请方即可获得200枚TB币，被邀请方也可获得200枚TB币。</text>
+    </view>
+    <view class="h2">活动注意事项：</view>
+    <view class="p">
+      <text class="text">1、用户参与活动，填写的手机号等信息真实有效，并且通过验证。</text>
+      <text class="text">2、活动所获取的TB币，待交易所上线后，完成身份验证即可到账交易所账户。</text>
+      <text class="text">3、邀请好友活动奖励，需要被邀请好友待交易所上线后，完成身份验证即可到账交易所账户。</text>
+      <text class="text">4、如系统判断用户存在作弊行为，例如短时间内同一IP地址注册多个用户，使用辅助程序等非人为操作方式或利用平台技术漏洞等方式，ThinkBit有权终止用户参与本活动的资格、取消全部活动奖励，并有权追究相关法律责任。</text>
+      <text class="text">5、本次活动不向用户收取任何费用，用户参与本活动也未投入任何之处，活动期间产生任何调整，根据法律规定，用户对此予以理解且没有任何异议。</text>
+      <text class="text">6、在法律许可的范围内ThinkBit拥有本活动的解释权。</text>
+    </view>
+  </view>
+</view>

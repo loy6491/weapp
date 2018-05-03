@@ -1,0 +1,78 @@
+<!--index.wxml-->
+<view class="container">
+  <block wx:if="{{ step === 1 || step === 2 }}">
+    <image class="logo" src="../../assets/logo.png"></image>
+    <image class="bg" src="../../assets/bg.jpg"></image>
+    <view bindtap="openRule" class="rule-btn-view">
+      <image class="rule-btn" src="../../assets/rule.png"></image>
+    </view>
+  </block>
+  <view class="content" hidden="{{ step !== 1 }}">
+    <view class="phone-input-wrap">
+      <picker class="region-picker"
+        bindchange="bindRegionChange" value="{{regionIndex}}"
+        range="{{regionList}}" range-key="name">
+        <text>+{{regionList[regionIndex].id}}</text>
+      </picker>
+      <input bindinput="onInput" class="phone-input" value=""
+        placeholder="请输入手机号" placeholder-style='color:rgba(255,255,255,.5)'></input>
+    </view>
+    <view class="get-btn-wrap" hover-class="get-btn-hover">
+      <image src="../../assets/receive.png" class="get-btn-bg"></image>
+      <button class="get-btn" bindtap="getCode"></button>
+    </view>
+    <view class="hint1">验证手机获得500TB币</view>
+  </view>
+  <view class="content" hidden="{{ step !== 2 }}">
+    <text class="code-title">验证码</text>
+    <text class="code-senttext">已发送至 {{ phone }}</text>
+    <text class="count-down" wx:if="countDown > 0">{{ countDown }} 秒后重发</text>
+    <button class="send-btn" wx:else>重新发送</button>
+    <input type="number"
+      class="code-input focus-{{ focus }}"
+      focus="{{ focus }}"
+      bindfocus="onFocus"
+      value=""
+      maxlength="4"
+      bindinput="onCodeInput"
+      disabled="{{ codeDisable }}"></input>
+  </view>
+  <scroll-view scroll-y class="profile-page" wx:if="{{ step === 3 }}">
+    <view class="profile-content">
+      <image class="logo" src="../../assets/logo.png"></image>
+      <image class="bg2" src="../../assets/bg2.jpg"></image>
+      <view class="panel">
+        <view class="balance">
+          <text class="balance-text">{{ balance }}</text>
+          <image src="../../assets/ball.png" class="cycle"></image>
+        </view>
+        <view class="hint2">完成以下两个任务获得更多TB币</view>
+        <view class="task1">
+          <image src="../../assets/task1.png" class="task1-bg"></image>
+          <view class="panel1">
+            <text class="panel-title">任务一</text>
+            <text class="desc-normal">把以下验证号发送到电报群验证通过后</text>
+            <view class="desc-mul">
+              <text class="desc-normal">获得</text>
+              <text class="desc-bold"> 100TB币</text>
+            </view>
+            <text class="invite-code">{{ inviteCode }}</text>
+            <view class="invite-plate"></view>
+            <view class="copy-btn-view" bindtap="copyInviteCode" hover-class="btn-hover">
+              <image class="copy-btn-img" src="../../assets/copy.png"></image>
+            </view>
+            <image src="../../assets/down.png" class="down-deco"></image>
+            <view class="share-btn-view" bindtap="shareInviteCode" hover-class="btn-hover">
+              <image class="share-btn-img" src="../../assets/send.png"></image>
+            </view>
+          </view>
+        </view>
+        <view class="task2">
+          <image src="../../assets/task2.png" class="task2-bg"></image>
+          <view class="panel2">
+          </view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+</view>

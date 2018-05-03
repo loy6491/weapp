@@ -1,0 +1,14 @@
+{
+  "debug": true,
+  "pages":[
+    "pages/index/index",
+    "pages/rule/rule",
+    "pages/tg/tg"
+  ],
+  "window":{
+    "backgroundTextStyle":"#031033",
+    "navigationBarBackgroundColor": "#031033",
+    "navigationBarTitleText": "注册领取TB",
+    "navigationBarTextStyle":"white"
+  }
+}

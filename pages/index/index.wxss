@@ -1,0 +1,269 @@
+/**index.wxss**/
+.container {
+  background-color: black;
+  color: white;
+  height: 100vh;
+  width: 100%;
+  overflow-y: hidden;
+}
+.bg {
+  left: 0;
+  top: 0;
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  z-index: 0;
+}
+.logo {
+  position: absolute;
+  left: 42rpx;
+  top: 48rpx;
+  width: 165rpx;
+  height: 29rpx;
+  z-index: 1;
+}
+.content {
+  position: absolute;
+  height: 60vh;
+  width: 100%;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.phone-input-wrap {
+  width: 442rpx;
+  display: flex;
+  align-items: center;
+  border-bottom: 1rpx solid #81889b;
+  margin-bottom: 60rpx;
+}
+.region-picker {
+  font-size: 40rpx;
+  margin-right: 36rpx;
+  line-height: 70rpx;
+  height: 70rpx;
+  width: 128rpx;
+  text-align: right;
+}
+.phone-input {
+  font-size: 30rpx;
+  height: 70rpx;
+  padding-right: 30rpx;
+}
+.get-btn-wrap {
+  position: relative;
+  width: 574rpx;
+  height: 128rpx;
+  margin-bottom: 12rpx;
+  transition: opacity 300ms;
+}
+.get-btn-hover {
+  opacity: .9;
+}
+.get-btn-bg {
+  width: 574rpx;
+  height: 128rpx;
+}
+.get-btn {
+  background-color: transparent;
+  color: white;
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+.hint1 {
+  color: rgba(255,255,255,.5);
+  font-size: 28rpx;
+}
+.code-title {
+  font-size: 54rpx;
+  margin-bottom: 20rpx;
+}
+.code-senttext {
+  font-size: 28rpx;
+  color: rgba(255,255,255, .5);
+  margin-bottom: 32rpx;
+}
+.count-down {
+  font-size: 28rpx;
+  color: rgba(255,255,255, .5);
+  margin-bottom: 32rpx;
+}
+.send-btn {
+  color: #9c97ff;
+  font-size: 28rpx;
+  margin-bottom: 32rpx;
+}
+.code-input {
+  color: white;
+  font-size: 54rpx;
+  height: 54rpx;
+  padding: 10px;
+  background-color: transparent;
+  border: 1rpx solid white;
+  width: 320rpx;
+  text-align: center;
+}
+.focus-true {
+  border: 1rpx solid #9c97ff;
+}
+.profile-page {
+  height: 100vh;
+  background-color: #030f34;
+  position: relative;
+}
+
+.profile-content {
+  height: 1836rpx;
+}
+.bg2 {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 750rpx;
+  height: 920rpx;
+  z-index: 0;
+}
+.rule-btn-view {
+  width: 200rpx;
+  height: 65rpx;
+  position: absolute;
+  right: -10rpx;
+  top: 60rpx;
+}
+.rule-btn {
+  width: 200rpx;
+  height: 65rpx;
+}
+.panel {
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  padding-top: 104rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+.balance {
+  display: flex;
+  width: 408rpx;
+  height: 408rpx;
+  position: relative;
+}
+.balance-text {
+  position: absolute;
+  left: 0;
+  top: 144rpx;
+  width: 100%;
+  z-index: 1;
+  line-height: 120rpx;
+  height: 120rpx;
+  font-size: 110rpx;
+  text-align: center;
+}
+.cycle {
+  width: 408rpx;
+  height: 408rpx;
+}
+.hint2 {
+  font-size: 26rpx;
+  line-height: 108rpx;
+  color: rgba(255,255,255, .5);
+}
+.task1 {
+  width: 666rpx;
+  height: 645rpx;
+  margin-bottom: 20rpx;
+  position: relative;
+}
+.task1-bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+.panel1 {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.task2 {
+  width: 666rpx;
+  height: 485rpx;
+  position: relative;
+}
+.task2-bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+.panel2 {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.panel-title {
+  font-size: 42rpx;
+  line-height: 42rpx;
+  padding: 44rpx 0 26rpx;
+  font-weight: bold;
+}
+.desc-normal {
+  font-size: 28rpx;
+  line-height: 50rpx;
+}
+.desc-mul {
+
+}
+.desc-bold {
+  font-weight: bold;
+  font-size: 34rpx;
+}
+.invite-code {
+  color: rgba(255,255,255, .5);
+  font-size: 26rpx;
+  line-height: 50rpx;
+  margin-top: 20rpx;
+}
+.invite-plate {
+  height: 6rpx;
+  width: 360rpx;
+  border-left: 1rpx solid rgba(255,255,255, .4);
+  border-right: 1rpx solid rgba(255,255,255, .4);
+  border-bottom: 1rpx solid rgba(255,255,255, .4);
+  margin-bottom: 6rpx;
+}
+.btn-hover {
+  opacity: .9;
+}
+.copy-btn-img {
+  width: 464rpx;
+  height: 136rpx;
+}
+.down-deco {
+  width: 24rpx;
+  height: 13rpx;
+}
+.share-btn-view {
+
+}
+.share-btn-img {
+  width: 464rpx;
+  height: 136rpx;
+}
