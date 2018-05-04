@@ -1,6 +1,6 @@
 const regionList = require('../../utils/region.js')
 const app = getApp()
-const url = 'http://invite.m960.cn/tb/'
+const url = 'https://invite.m960.cn/tb/'
 var chinaIndex
 regionList.forEach(function (item, index) {
   item.fullname = '+' + item.id + ' ' + item.cname
@@ -136,10 +136,13 @@ Page({
         phone: vm.data.phone
       },
       header: {
-        sid: vm.getSid('sid'),
+        'x-auth-token': vm.getSid('sid'),
         'content-type': 'application/x-www-form-urlencoded'
       },
       success: function (response) {
+        if (response.header && response.header['x-auth-token']) {
+          vm.setSid(response.header['x-auth-token'])
+        }
         var res = response.data
         if (res.code) {
           wx.showToast({
@@ -168,6 +171,7 @@ Page({
       codeDisable: true
     })
     var param = {
+      region_id: vm.data.regionId,
       phone: vm.data.phone,
       code: vm.data.code,
       invator: vm.data.myInvitor
@@ -178,12 +182,14 @@ Page({
       dataType: 'json',
       data: param,
       header: {
-        sid: vm.getSid(),
+        'x-auth-token': vm.getSid(),
         'content-type': 'application/x-www-form-urlencoded'
       },
       success: function (response) {
+        if (response.header && response.header['x-auth-token']) {
+          vm.setSid(response.header['x-auth-token'])
+        }
         var res = response.data
-        console.log(res)
         if (res.code) {
           wx.showToast({
             icon: 'none',
@@ -193,7 +199,6 @@ Page({
             codeDisable: false
           })
         } else {
-          vm.setSid(res.data.sid)
           vm.fetch()
         }
       },
@@ -217,6 +222,7 @@ Page({
     var vm = this
     var sid = vm.getSid('sid')
     if (!sid) {
+      /*
       return vm.setData({
         step: 3,
         inviteCode: 'xixixi',
@@ -228,6 +234,7 @@ Page({
 
         }]
       })
+      */
       return vm.setData({
         step: 1
       })
@@ -238,7 +245,7 @@ Page({
       method: 'POST',
       dataType: 'json',
       header: {
-        sid: sid,
+        'x-auth-token': sid,
         'content-type': 'application/x-www-form-urlencoded'
       },
       success: function (response) {
@@ -257,8 +264,8 @@ Page({
             invitees: res.data.invitees
           })
         }
-        if (res.data && res.data.sid) {
-          vm.setSid(res.data.sid)
+        if (response.header && response.header['x-auth-token']) {
+          vm.setSid(response.header['x-auth-token'])
         }
       },
       fail: function (res) {
