@@ -234,6 +234,9 @@
   padding: 44rpx 0 26rpx;
   font-weight: bold;
 }
+.title2 {
+  margin-bottom: 48rpx;
+}
 .desc-normal {
   font-size: 28rpx;
   line-height: 50rpx;

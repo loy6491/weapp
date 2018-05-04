@@ -78,6 +78,12 @@
         <view class="task2">
           <image src="../../assets/task2.png" class="task2-bg"></image>
           <view class="panel2">
+            <text class="panel-title title2">任务二</text>
+            <text class="desc-normal">把小程序分享给好友，每成功邀请一个好友</text>
+            <view class="desc-mul">
+              <text class="desc-normal">完成手机验证，即可获得</text>
+              <text class="desc-bold"> 200TB币</text>
+            </view>
             <view class="share-btn-view"  hover-class="btn-hover">
               <button class="share-btn" open-type="share"></button>
               <image class="share-btn-img" src="../../assets/share-btn.png"></image>

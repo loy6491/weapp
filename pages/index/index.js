@@ -15,6 +15,7 @@ Page({
     return {
       title: '注册领取TB币',
       path: '/pages/index/index?code=' + this.data.inviteCode,
+      imageUrl: '../../assets/share-img.jpg',
       success: function (res) {
         console.log(res)
       },
@@ -217,9 +218,21 @@ Page({
     var sid = vm.getSid('sid')
     if (!sid) {
       return vm.setData({
+        step: 3,
+        inviteCode: 'xixixi',
+        balance: 660,
+        ranking: [{
+
+        }],
+        invitees: [{
+
+        }]
+      })
+      return vm.setData({
         step: 1
       })
     }
+    console.log(sid)
     wx.request({
       url: url + 'profile',
       method: 'POST',
