@@ -274,7 +274,7 @@ Page({
             step: 3,
             inviteCode: res.data.invator,
             balance: res.data.total,
-            ranking: res.data.ranking.concat(res.data.ranking.slice()).concat(res.data.ranking.slice()).concat(res.data.ranking.slice()),
+            ranking: res.data.ranking,
             progress: res.data.invitees
           })
         }
