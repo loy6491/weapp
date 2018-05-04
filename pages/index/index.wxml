@@ -2,7 +2,10 @@
 <view class="container">
   <block wx:if="{{ step === 1 || step === 2 }}">
     <image class="logo" src="../../assets/logo.png"></image>
-    <image class="bg" src="../../assets/bg.jpg"></image>
+    <image class="bg" src="../../assets/bg1.jpg"></image>
+    <text class="guide">每成功邀请一位好友即可再获得200TB币
+      加入ThinkBit微信群额外再获得100TB币
+    </text>
     <view bindtap="openRule" class="rule-btn-view">
       <image class="rule-btn" src="../../assets/rule.png"></image>
     </view>
@@ -11,11 +14,16 @@
     <view class="phone-input-wrap">
       <picker class="region-picker"
         bindchange="bindRegionChange" value="{{regionIndex}}"
-        range="{{regionList}}" range-key="name">
+        range="{{regionList}}" range-key="fullname">
         <text>+{{regionList[regionIndex].id}}</text>
       </picker>
-      <input bindinput="onInput" class="phone-input" value=""
-        placeholder="请输入手机号" placeholder-style='color:rgba(255,255,255,.5)'></input>
+      <input bindinput="onInput"
+        class="phone-input"
+        value=""
+        type="number"
+        placeholder="请输入手机号"
+        placeholder-style='color:rgba(255,255,255,.5)'>
+      </input>
     </view>
     <view class="get-btn-wrap" hover-class="get-btn-hover">
       <image src="../../assets/receive.png" class="get-btn-bg"></image>
@@ -51,7 +59,7 @@
           <image src="../../assets/task1.png" class="task1-bg"></image>
           <view class="panel1">
             <text class="panel-title">任务一</text>
-            <text class="desc-normal">把以下验证号发送到电报群验证通过后</text>
+            <text class="desc-normal">把以下验证号发送到微信群验证通过后</text>
             <view class="desc-mul">
               <text class="desc-normal">获得</text>
               <text class="desc-bold"> 100TB币</text>
@@ -62,14 +70,18 @@
               <image class="copy-btn-img" src="../../assets/copy.png"></image>
             </view>
             <image src="../../assets/down.png" class="down-deco"></image>
-            <view class="share-btn-view" bindtap="shareInviteCode" hover-class="btn-hover">
-              <image class="share-btn-img" src="../../assets/send.png"></image>
+            <view class="share-btn-view" bindtap="saveQrcode" hover-class="btn-hover">
+              <image class="share-btn-img" src="../../assets/wechat-btn.png"></image>
             </view>
           </view>
         </view>
         <view class="task2">
           <image src="../../assets/task2.png" class="task2-bg"></image>
           <view class="panel2">
+            <view class="share-btn-view"  hover-class="btn-hover">
+              <button class="share-btn" open-type="share"></button>
+              <image class="share-btn-img" src="../../assets/share-btn.png"></image>
+            </view>
           </view>
         </view>
       </view>

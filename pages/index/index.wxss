@@ -1,6 +1,6 @@
 /**index.wxss**/
 .container {
-  background-color: black;
+  background-color: #030f34;
   color: white;
   height: 100vh;
   width: 100%;
@@ -10,8 +10,8 @@
   left: 0;
   top: 0;
   position: absolute;
-  width: 100%;
-  height: 100vh;
+  width: 750rpx;
+  height: 920rpx;
   z-index: 0;
 }
 .logo {
@@ -21,6 +21,16 @@
   width: 165rpx;
   height: 29rpx;
   z-index: 1;
+}
+.guide {
+  position: absolute;
+  z-index: 1;
+  top: 504rpx;
+  width: 100%;
+  text-align: center;
+  font-size: 24rpx;
+  line-height: 40rpx;
+  height: 80rpx;
 }
 .content {
   position: absolute;
@@ -261,9 +271,18 @@
   height: 13rpx;
 }
 .share-btn-view {
-
+  position: relative;
 }
 .share-btn-img {
   width: 464rpx;
   height: 136rpx;
+}
+.share-btn {
+  width: 464rpx;
+  height: 136rpx;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 10;
+  background-color: transparent;
 }

@@ -1,6 +1,13 @@
-const util = require('../../utils/util.js')
+const regionList = require('../../utils/region.js')
 const app = getApp()
 const url = 'http://invite.m960.cn/tb/'
+var chinaIndex
+regionList.forEach(function (item, index) {
+  item.fullname = '+' + item.id + ' ' + item.cname
+  if (item.id == 86) {
+    chinaIndex = index
+  }
+})
 
 Page({
   onShareAppMessage: function (res) {
@@ -20,17 +27,21 @@ Page({
     step: 0,
     phone: '',
     code: '',
-    invitor: '',
+    myInvitor: '',
     focus: false,
     codeDisable: false,
-    regionIndex: 1,
+    regionIndex: chinaIndex,
+    regionId: 86,
     balance: 0,
     inviteCode: 'xxx',
-    regionList: util.regionList,
-    countDown: -1
+    regionList: regionList,
+    countDown: -1,
+    ranking: [],
+    invitees: []
   },
   bindRegionChange: function (event) {
     this.setData({
+      regionId: this.data.regionList[event.detail.value].id,
       regionIndex: event.detail.value
     })
   },
@@ -49,6 +60,29 @@ Page({
       })
       this.submit()
     }
+  },
+  saveQrcode: function () {
+    wx.getImageInfo({
+      src: '../../assets/wechat-thinkbit.jpg',
+      success: function (res) {
+        wx.saveImageToPhotosAlbum({
+          filePath: res.path,
+          success: function () {
+            wx.showToast({
+              icon: 'none',
+              duration: 3000,
+              title: '官方群二维码已保存至相册'
+            })
+          },
+          fail: function (res) {
+            wx.showToast({
+              icon: 'none',
+              title: JSON.stringify(res)
+            })
+          }
+        })
+      }
+    })
   },
   shareInviteCode: function () {
     wx.navigateTo({
@@ -92,15 +126,39 @@ Page({
     }
     wx.showLoading()
     var vm = this
-    setTimeout(function () {
-      wx.hideLoading()
-      vm.setData({
-        step: 2,
-        focus: true,
-        countDown: 60
-      })
-      vm.count()
-    }, 1000)
+    wx.request({
+      url: url + 'sign/code',
+      method: 'POST',
+      dataType: 'json',
+      data: {
+        region_id: vm.data.regionId,
+        phone: vm.data.phone
+      },
+      header: {
+        sid: vm.getSid('sid'),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      success: function (response) {
+        var res = response.data
+        if (res.code) {
+          wx.showToast({
+            icon: 'nonen',
+            title: res.message
+          })
+        } else {
+          vm.setData({
+            step: 2,
+            focus: true,
+            countDown: 60
+          })
+          vm.count()
+        }
+      },
+      fail: function () {},
+      complete: function () {
+        wx.hideLoading()
+      }
+    })
   },
   submit: function () {
     wx.showLoading()
@@ -108,38 +166,68 @@ Page({
     vm.setData({
       codeDisable: true
     })
-    setTimeout(function () {
-      wx.hideLoading()
-      if (0) {
+    var param = {
+      phone: vm.data.phone,
+      code: vm.data.code,
+      invator: vm.data.myInvitor
+    }
+    wx.request({
+      url: url + 'sign/signin',
+      method: 'POST',
+      dataType: 'json',
+      data: param,
+      header: {
+        sid: vm.getSid(),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      success: function (response) {
+        var res = response.data
+        console.log(res)
+        if (res.code) {
+          wx.showToast({
+            icon: 'none',
+            title: '验证码错误'
+          })
+          return vm.setData({
+            codeDisable: false
+          })
+        } else {
+          vm.setSid(res.data.sid)
+          vm.fetch()
+        }
+      },
+      fail: function (res) {
         wx.showToast({
           icon: 'none',
-          title: '验证码错误'
+          title: '注册失败'
         })
-        return vm.setData({
-          codeDisable: false
-        })
+      },
+      complete: function (res) {
+        wx.hideLoading()
       }
-      vm.setData({
-        step: 3
-      })
-    }, 1000)
+    })
   },
   openRule: function () {
     wx.navigateTo({
       url: '../rule/rule'
     })
   },
-  onLoad: function (options) {
+  fetch: function () {
     var vm = this
-    if (options.code) {
-      this.setData({
-        invitor: options.code
+    var sid = vm.getSid('sid')
+    if (!sid) {
+      return vm.setData({
+        step: 1
       })
     }
     wx.request({
       url: url + 'profile',
       method: 'POST',
       dataType: 'json',
+      header: {
+        sid: sid,
+        'content-type': 'application/x-www-form-urlencoded'
+      },
       success: function (response) {
         var res = response.data
         console.log(res)
@@ -151,10 +239,13 @@ Page({
           vm.setData({
             step: 3,
             inviteCode: res.data.invator,
-            balance: 500,
-            list: [],
-            list2: []
+            balance: res.data.total,
+            ranking: res.data.ranking,
+            invitees: res.data.invitees
           })
+        }
+        if (res.data && res.data.sid) {
+          vm.setSid(res.data.sid)
         }
       },
       fail: function (res) {
@@ -163,5 +254,30 @@ Page({
         })
       }
     })
+  },
+  setSid: function (sid) {
+    try {
+      wx.setStorageSync('sid', sid)
+    } catch (e) {
+      console.log('set sid error.')
+    }
+  },
+  getSid: function () {
+    var sid = ''
+    try {
+      sid = wx.getStorageSync('sid')
+    } catch (e) {
+      console.log('get sid error.')
+    }
+    return sid
+  },
+  onLoad: function (options) {
+    var vm = this
+    if (options.code) {
+      this.setData({
+        myInvitor: options.code
+      })
+    }
+    this.fetch()
   }
 })
