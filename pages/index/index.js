@@ -30,6 +30,8 @@ Page({
     code: '',
     myInvitor: '',
     focus: false,
+    copyed: false,
+    qrsaved: false,
     codeDisable: false,
     regionIndex: chinaIndex,
     regionId: 86,
@@ -37,8 +39,9 @@ Page({
     inviteCode: 'xxx',
     regionList: regionList,
     countDown: -1,
+    tab: 'ranking',
     ranking: [],
-    invitees: []
+    progress: []
   },
   bindRegionChange: function (event) {
     this.setData({
@@ -63,6 +66,10 @@ Page({
     }
   },
   saveQrcode: function () {
+    var vm = this
+    if (vm.data.qrsaved) {
+      return false
+    }
     wx.getImageInfo({
       src: '../../assets/wechat-thinkbit.jpg',
       success: function (res) {
@@ -73,6 +80,9 @@ Page({
               icon: 'none',
               duration: 3000,
               title: '官方群二维码已保存至相册'
+            })
+            vm.setData({
+              qrsaved: true
             })
           },
           fail: function (res) {
@@ -91,12 +101,16 @@ Page({
     })
   },
   copyInviteCode: function () {
+    var vm = this
     wx.setClipboardData({
-      data: this.data.inviteCode,
+      data: vm.data.inviteCode,
       success: function(res) {
         wx.getClipboardData({
           success: function(res) {
             wx.showToast({title: '已复制'})
+            vm.setData({
+              copyed: true
+            })
           }
         })
       }
@@ -108,7 +122,7 @@ Page({
       vm.setData({
         countDown: vm.data.countDown - 1
       })
-      if (vm.countDown > 0) {
+      if (vm.data.countDown > 0) {
         vm.count()
       }
     }, 1000)
@@ -260,8 +274,8 @@ Page({
             step: 3,
             inviteCode: res.data.invator,
             balance: res.data.total,
-            ranking: res.data.ranking,
-            invitees: res.data.invitees
+            ranking: res.data.ranking.concat(res.data.ranking.slice()).concat(res.data.ranking.slice()).concat(res.data.ranking.slice()),
+            progress: res.data.invitees
           })
         }
         if (response.header && response.header['x-auth-token']) {
@@ -290,6 +304,17 @@ Page({
       console.log('get sid error.')
     }
     return sid
+  },
+  tabRanking: function () {
+    this.setTab('ranking')
+  },
+  tabProgress: function () {
+    this.setTab('progress')
+  },
+  setTab: function (tab) {
+    this.setData({
+      tab: tab
+    })
   },
   onLoad: function (options) {
     var vm = this

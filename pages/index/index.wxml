@@ -66,11 +66,15 @@
             </view>
             <text class="invite-code">{{ inviteCode }}</text>
             <view class="invite-plate"></view>
-            <view class="copy-btn-view" bindtap="copyInviteCode" hover-class="btn-hover">
+            <view class="copy-btn-view disabled-{{ copyed }}"
+              bindtap="copyInviteCode"
+              hover-class="btn-hover">
               <image class="copy-btn-img" src="../../assets/copy.png"></image>
             </view>
             <image src="../../assets/down.png" class="down-deco"></image>
-            <view class="share-btn-view" bindtap="saveQrcode" hover-class="btn-hover">
+            <view class="share-btn-view disabled-{{ qrsaved }}"
+              bindtap="saveQrcode"
+              hover-class="btn-hover">
               <image class="share-btn-img" src="../../assets/wechat-btn.png"></image>
             </view>
           </view>
@@ -87,6 +91,36 @@
             <view class="share-btn-view"  hover-class="btn-hover">
               <button class="share-btn" open-type="share"></button>
               <image class="share-btn-img" src="../../assets/share-btn.png"></image>
+            </view>
+          </view>
+        </view>
+        <view class="nav">
+          <button class="rank-btn {{ tab == 'ranking' ? 'nav-active' : '' }}"
+            bindtap="tabRanking">
+            邀请排行榜
+          </button>
+          <button class="progress-btn {{ tab == 'progress' ? 'nav-active' : '' }}"
+            bindtap="tabProgress">
+            邀请好友进度
+          </button>
+        </view>
+        <view class="rank-block" hidden="{{ tab !== 'ranking' }}">
+          <view class="desc-normal">邀请好友最多的前1000名用户平分</view>
+          <view class="desc-bold">5,000,000TB币</view>
+          <view class="rank-list">
+            <view class="rank-item" wx:for="{{ ranking }}" wx:key="index">
+              <image class="rank-icon" src="../../assets/{{['one', 'two', 'three'][index]}}.png" wx:if="{{index <= 2}}"></image>
+              <view class="rank-empty" wx:else></view>
+              <text class="rank-phone">{{ item.phone }}</text>
+              <text class="rank-score">已邀请{{ item.score }}名用户</text>
+            </view>
+          </view>
+        </view>
+        <view class="progress-block" hidden="{{ tab !== 'progress' }}">
+          <view class="progress-list">
+            <view class="progress-item" wx:for="{{ ranking }}" wx:key="index">
+              <text class="progress-phone">{{ item.phone }} 已注册，获得</text>
+              <text class="progress-score">200TB</text>
             </view>
           </view>
         </view>
